@@ -25,7 +25,7 @@ set tabsize 2
 set tabstospaces
 #set whitespace "»·"
 set whitespace "» "
-set linenumbers
+#set linenumbers
 set autoindent
 set constantshow
 include "/usr/share/nano/*.nanorc"
