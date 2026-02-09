@@ -1,4 +1,6 @@
 #!/bin/bash
+echo 'skip_global_compinit=1' >> "$HOME/.zshenv"
+
 ZSHRC="$HOME/.zshrc"
 # 1. Instalacja Zsh i curl
  apt update && apt install -y zsh curl
@@ -81,10 +83,6 @@ else
     PROMPT="╭─ ${user_style} ${dir_style}
 ╰─❯ "
     unsetopt share_history # opcjonalnie: wyłącz dzielenie historii dla szybkości
-fi
-
-if [ -f /etc/zsh_command_not_found ]; then
-    echo 'source /etc/zsh_command_not_found' >> "$ZSHRC"
 fi
 
 # Maping Home, End, Delete
