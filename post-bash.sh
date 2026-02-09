@@ -127,6 +127,14 @@ for line in "${CONFIG_LINES[@]}"; do
     fi
 done
 
+# 7. Zmiana domyślnej powłoki na Zsh
+if [ "$SHELL" != "$(which bash)" ]; then
+    chsh -s $(which bash) $USER
+fi
+
 # refresh session
 source "$HOME/.bashrc" 2>/dev/null
 
+
+echo -e "\e[32m[OK]\e[0m Bash zostały skonfigurowane."
+echo "Wyloguj się i zaloguj ponownie, aby zobaczyć zmiany."

@@ -208,7 +208,7 @@ style = "bold #FF8700"
 format = "[$symbol$output%]($style) "
 shell = ["sh"]
 EOF
-)
+
 
 echo -e "\e[32m[OK]\e[0m Zsh, Zimfw i Starship zostały skonfigurowane."
 echo "Wyloguj się i zaloguj ponownie, aby zobaczyć zmiany."

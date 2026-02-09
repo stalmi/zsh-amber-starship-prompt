@@ -69,9 +69,6 @@ fi
 
  alias lsblk='lsblk -o NAME,SIZE,MAJ:MIN,RM,RO,TYPE,MOUNTPOINTS,SERIAL,MODEL,ID-LINK'
 
- bind '"\e[A": history-search-backward'
- bind '"\e[B": history-search-forward'
-
  export TERM='xterm-256color'
 
 alias grep='grep --color=auto'
