@@ -83,25 +83,16 @@ EOF
 
 # Funkcja dodająca konfigurację tylko jeśli jeszcze jej nie ma
 update_config() {
-    local FILE=$1
-    if [ -f "$FILE" ]; then
-        if ! grep -q "CUSTOM CONFIG START" "$FILE"; then
-            echo -e "$EXTRA_CONFIG" >> "$FILE"
-            echo -e "\e[32m[OK]\e[0m Zaktualizowano $FILE"
-        else
-            echo -e "\e[33m[SKIP]\e[0m $FILE posiada już konfigurację"
-        fi
-    fi
-if [ ! -f "$FILE" ]; then
-    echo -e "$extra_config" > "$FILE"
+  local FILE=$1
+  if [ ! -f "$FILE" ]; then
+    echo -e "$EXTRA_CONFIG" > "$FILE"
     echo -e "\e[32m[ok]\e[0m utworzono nowy plik $FILE"
-elif ! grep -q "custom config start" "$FILE"; then
-    echo -e "$extra_config" >> "$FILE"
+  elif ! grep -q "CUSTOM CONFIG START" "$FILE"; then
+    echo -e "$EXTRA_CONFIG" >> "$FILE"
     echo -e "\e[32m[ok]\e[0m zaktualizowano $FILE"
-else
+  else
     echo -e "\e[33m[skip]\e[0m $FILE posiada już konfigurację"
-fi
-
+  fi
 
 }
 #Run

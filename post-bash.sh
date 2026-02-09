@@ -67,6 +67,9 @@ xterm*|rxvt*)
     ;;
 esac
 
+export TERM='xterm-256color'
+
+
 if [ -f ~/.aliases ]; then
     . ~/.aliases
 fi
@@ -94,10 +97,35 @@ update_config() {
         fi
     fi
 }
-./post-alias.sh
 
 #Run
 update_config "$HOME/.bashrc"
+
+# Ścieżka do pliku konfiguracyjnego Readline
+INPUTRC="$HOME/.inputrc"
+
+# Definicja wpisów do dodania (używamy formatu bez 'bind')
+CONFIG_LINES=(
+    '# Mapowanie Home, End, Delete'
+    '"\e[1~": beginning-of-line'
+    '"\e[4~": end-of-line'
+    '"\e[h": beginning-of-line'
+    '"\e[f": end-of-line'
+    '# Wyszukiwanie w historii po wpisaniu początku komendy'
+    '"\e[A": history-search-backward'
+    '"\e[B": history-search-forward'
+)
+# Tworzy plik .inputrc jeśli nie istnieje
+if [ ! -f "$INPUTRC" ]; then
+    touch "$INPUTRC"
+fi
+
+for line in "${CONFIG_LINES[@]}"; do
+    # Sprawdza czy linia już istnieje, aby nie śmiecić w pliku
+    if ! grep -qF "$line" "$INPUTRC"; then
+        echo "$line" >> "$INPUTRC"
+    fi
+done
 
 # refresh session
 source "$HOME/.bashrc" 2>/dev/null

@@ -5,8 +5,6 @@ ZSHRC="$HOME/.zshrc"
 
 # 2. Instalacja zimfw (Zsh IMproved FrameWork)
 # Skrypt automatycznie pobiera zimfw i tworzy pliki konfiguracyjne
-# set external aliases
-./post-alias.sh
 export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 if [ ! -d "$ZIM_HOME" ]; then
     curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
@@ -22,19 +20,14 @@ zmodule completion
 zmodule zsh-users/zsh-autosuggestions
 zmodule zsh-users/zsh-syntax-highlighting
 zmodule zsh-users/zsh-completions
-zmodule debian            # Aliasy specyficzne dla Debiana (np. agi -> apt install)
-zmodule systemd           # Skróty dla systemctl (np. sc-start, sc-status)
-zmodule sudo              # Podwójny ESC dodaje 'sudo' przed komendę
-zmodule command-not-found # Podpowiada brakujące pakiety
 EOF
 
 zsh -c "source $HOME/.zim/zimfw.zsh install"
 
-
 # 5. Instalacja Starship (Prompt w Rust)
 if ! command -v starship &> /dev/null; then
   #curl -sS https://starship.rs/install.sh | sh -s -- -y
-  apt install starship
+  apt install starship -y
 fi
 
 # 6. Konfiguracja .zshrc pod Starship i zimfw
@@ -118,7 +111,6 @@ if [ "$SHELL" != "$(which zsh)" ]; then
 fi
 
 # 8. config of starship
-# TODO
 cat << 'EOF' > "$HOME/.config/starship.toml"
 # Główne formatowanie: Dwulinijkowy prompt
 format = """
@@ -216,6 +208,7 @@ style = "bold #FF8700"
 format = "[$symbol$output%]($style) "
 shell = ["sh"]
 EOF
+)
 
 echo -e "\e[32m[OK]\e[0m Zsh, Zimfw i Starship zostały skonfigurowane."
 echo "Wyloguj się i zaloguj ponownie, aby zobaczyć zmiany."
