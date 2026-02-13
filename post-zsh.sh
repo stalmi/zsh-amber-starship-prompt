@@ -3,7 +3,7 @@ echo 'skip_global_compinit=1' >> "$HOME/.zshenv"
 
 ZSHRC="$HOME/.zshrc"
 # 1. Instalacja Zsh i curl
- apt update && apt install -y zsh curl
+apt update && apt install -y zsh curl
 
 # 2. Instalacja zimfw (Zsh IMproved FrameWork)
 # Skrypt automatycznie pobiera zimfw i tworzy pliki konfiguracyjne
@@ -19,6 +19,7 @@ cat << 'EOF' > "$HOME/.zimrc"
 zmodule archive
 zmodule git
 zmodule completion
+zmodule termtitle
 zmodule zsh-users/zsh-autosuggestions
 zmodule zsh-users/zsh-syntax-highlighting
 zmodule zsh-users/zsh-completions
@@ -28,8 +29,7 @@ zsh -c "source $HOME/.zim/zimfw.zsh install"
 
 # 5. Instalacja Starship (Prompt w Rust)
 if ! command -v starship &> /dev/null; then
-  #curl -sS https://starship.rs/install.sh | sh -s -- -y
-  apt install starship -y
+  curl -sS https://starship.rs/install.sh | sh -s -- -y
 fi
 
 # 6. Konfiguracja .zshrc pod Starship i zimfw
@@ -37,7 +37,12 @@ fi
 if ! grep -q "starship init zsh" "$ZSHRC"; then
     cat << 'EOF' >> "$ZSHRC"
 
-# --- STARSHIP & CUSTOM CONFIG ---
+# --- ZIM & STARSHIP & CUSTOM CONFIG ---
+
+# Set a custom terminal title format using prompt expansion escape sequences.
+# See http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Simple-Prompt-Escapes
+zstyle ':zim:termtitle' format '%n@%m: %~'
+
 if [[ -z "$MC_SID" && -z "$MC_TMPDIR" ]]; then
   # Inicjalizacja Starship Prompt
   eval "$(starship init zsh)"
