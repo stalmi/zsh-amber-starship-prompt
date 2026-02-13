@@ -3,7 +3,7 @@ echo 'skip_global_compinit=1' >> "$HOME/.zshenv"
 
 ZSHRC="$HOME/.zshrc"
 # 1. Instalacja Zsh i curl
-apt update && apt install -y zsh curl
+sudo apt update && apt install -y zsh curl
 
 # 2. Instalacja zimfw (Zsh IMproved FrameWork)
 # Skrypt automatycznie pobiera zimfw i tworzy pliki konfiguracyjne
